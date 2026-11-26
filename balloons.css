@@ -1,0 +1,287 @@
+/* Fixed behind page content so scrolling does not restart the flight. */
+.balloon-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero, .section > .wrap, .section.wrap, .site-footer {
+  position: relative;
+  z-index: 1;
+}
+.skip { z-index: 5; }
+.balloon-definitions { position: absolute; }
+.balloon-particle {
+  --balloon-color: #c87b92;
+  --light-color: #f8c8d6;
+  --balloon-size: clamp(56px, 8vw, 116px);
+  --drift: 38px;
+  --flight: 17s;
+  --start: 0s;
+  position: absolute;
+  top: 100%;
+  left: 6%;
+  width: var(--balloon-size);
+  animation: balloon-flight var(--flight) var(--start) linear infinite;
+}
+.balloon-particle > svg { display: block; width: 100%; height: auto; }
+.balloon-reflection { mix-blend-mode: lighten; }
+.balloon-particle:nth-of-type(2) {
+  --balloon-color: #799ba9;
+  --light-color: #cce7f0;
+  --balloon-size: clamp(45px, 6vw, 85px);
+  --drift: -58px;
+  --flight: 19s;
+  --start: .6s;
+  left: 27%;
+}
+.balloon-particle:nth-of-type(3) {
+  --balloon-color: #aa8e65;
+  --light-color: #f2dfb8;
+  --start: 1.4s;
+  --flight: 21s;
+  left: 48%;
+}
+.balloon-particle:nth-of-type(4) {
+  --balloon-color: #97a775;
+  --light-color: #d8e6b4;
+  --balloon-size: clamp(45px, 6vw, 83px);
+  --drift: -38px;
+  --flight: 16s;
+  --start: 2.3s;
+  left: 65%;
+}
+.balloon-particle:nth-of-type(5) {
+  --balloon-color: #997caa;
+  --light-color: #dec6ec;
+  --drift: -60px;
+  --flight: 20s;
+  --start: .25s;
+  left: 84%;
+}
+.balloon-particle:nth-of-type(6) {
+  --balloon-color: #c78f7a;
+  --light-color: #f4cdbf;
+  --balloon-size: clamp(42px, 5vw, 73px);
+  --flight: 18s;
+  --start: 4.2s;
+  left: 38%;
+}
+@keyframes balloon-flight {
+  from { transform: translate3d(0, 0, 0) rotate(-5deg); opacity: .43; }
+  48% { transform: translate3d(var(--drift), -62vh, 0) rotate(8deg); opacity: .43; }
+  to { transform: translate3d(0, calc(-100vh - 100%), 0) rotate(-5deg); opacity: .43; }
+}
+
+/* Section colours for the inflated buttons. */
+:root {
+  --puff-top: #e3eed9;
+  --puff-fill: #bdd4a8;
+  --puff-rim: #94ac81;
+  --puff-ink: #243220;
+}
+.builder {
+  --puff-top: #eff4d9;
+  --puff-fill: #ced9a5;
+  --puff-rim: #a7b482;
+}
+.works, #order-dialog {
+  --puff-top: #fce6ed;
+  --puff-fill: #e9bacb;
+  --puff-rim: #c6899d;
+  --puff-ink: #442433;
+}
+.delivery, #cookie-dialog {
+  --puff-top: #e7f1fc;
+  --puff-fill: #bcd6e7;
+  --puff-rim: #8dacc3;
+  --puff-ink: #223647;
+}
+.request {
+  --puff-top: #fff2dd;
+  --puff-fill: #ead3ad;
+  --puff-rim: #c5a679;
+  --puff-ink: #3b2c1d;
+}
+.catalog [data-order="birthday"] {
+  --puff-top: #424d35;
+  --puff-fill: #353f2a;
+  --puff-rim: #293421;
+  --puff-ink: #b6ba9f;
+}
+.catalog [data-order="wedding"] {
+  --puff-top: #685949;
+  --puff-fill: #544639;
+  --puff-rim: #493b2e;
+  --puff-ink: #e8e1d8;
+}
+.catalog [data-order="newborn"] {
+  --puff-top: #48586a;
+  --puff-fill: #354554;
+  --puff-rim: #293743;
+  --puff-ink: #d4d8df;
+}
+.catalog [data-order="surprise"] {
+  --puff-top: #3d1c2e;
+  --puff-fill: #361627;
+  --puff-rim: #301323;
+  --puff-ink: #db557a;
+}
+:is(.button, .text-link, .plain-button, .header-contact, .balloon-toggle, .choices span) {
+  border: 1px solid var(--puff-rim);
+  border-radius: 999px;
+  background: radial-gradient(ellipse at 40% 0%, #ffffffc0, transparent 60%),
+    linear-gradient(180deg, var(--puff-top), var(--puff-fill) 75%, var(--puff-rim));
+  box-shadow: inset 0 1px 2px #ffffffd0, inset 0 -2px 4px #34443334,
+    0 2px 3px #25282020;
+  color: var(--puff-ink);
+  text-decoration: none;
+  touch-action: manipulation;
+}
+:is(.button-outline, .text-link, .plain-button, .header-contact, .choices input:not(:checked) + span) {
+  background: radial-gradient(ellipse at 42% 0%, #ffffffbf, transparent 70%),
+    linear-gradient(180deg, var(--puff-top), color-mix(in srgb, var(--puff-top) 67%, var(--puff-fill)));
+}
+:is(.text-link, .plain-button, .header-contact) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 13px;
+  line-height: 1.2;
+  text-align: center;
+}
+.catalog-item .text-link {
+  max-width: 100%;
+  gap: .25em;
+  padding-inline: clamp(6px, 1vw, 12px);
+  background: radial-gradient(ellipse at 40% 0%, #ffffff13, transparent 62%),
+    linear-gradient(180deg, var(--puff-top), var(--puff-fill) 72%, var(--puff-rim));
+  box-shadow: inset 0 1px 2px #ffffff48, 0 2px 3px #25282027;
+}
+.catalog-item .text-link span { font-size: .7em; }
+
+@media (max-width: 359px) {
+  .catalog-item .text-link span { display: none; }
+}
+.choices input:checked + span {
+  background: radial-gradient(ellipse at 40% 0%, #ffffffc0, transparent 60%),
+    linear-gradient(180deg, var(--puff-top), var(--puff-fill) 75%, var(--puff-rim));
+  outline: 2px solid var(--puff-ink);
+  outline-offset: -2px;
+  color: var(--puff-ink);
+  font-weight: 650;
+}
+.choices input:focus-visible + span {
+  outline: 3px solid #88462e;
+  outline-offset: 2px;
+}
+:is(.button, .text-link, .plain-button, .header-contact, .balloon-toggle):hover,
+.choices label:hover > span {
+  text-decoration: none;
+  filter: saturate(1.2) brightness(1.025);
+}
+.site-header .header-contact:hover { text-decoration: none; }
+.catalog-item .text-link:hover { filter: none; box-shadow: inset 0 1px 3px #ffffff70, 0 3px 5px #25282040; }
+.button:hover, .button-light:hover, .button-outline:hover {
+  background: radial-gradient(ellipse at 36% 0%, #ffffffe0, transparent 60%),
+    linear-gradient(180deg, var(--puff-top), var(--puff-fill) 75%, var(--puff-rim));
+}
+.balloon-toggle {
+  position: fixed;
+  right: max(10px, env(safe-area-inset-right));
+  bottom: max(10px, env(safe-area-inset-bottom));
+  z-index: 2;
+  min-height: 44px;
+  padding: 7px 13px;
+  font-size: .85rem;
+  font-weight: 700;
+}
+.balloon-toggle[aria-pressed="false"] { opacity: .83; }
+body:has(.balloon-toggle:not([hidden])) .site-footer { padding-bottom: 70px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  :is(.button, .text-link, .plain-button, .header-contact, .balloon-toggle, .choices span) {
+    transition: transform 230ms cubic-bezier(.2,.9,.34,1.45), box-shadow 150ms ease;
+  }
+  :is(.button, .text-link, .plain-button, .header-contact, .balloon-toggle):active:not(:disabled),
+  .choices label:active > span {
+    transform: translateY(.5px) scale(1.006, .96);
+    transition-duration: 105ms;
+    box-shadow: inset 0 1px 4px #2f433026, inset 0 -1px 3px #ffffff80;
+  }
+}
+
+
+
+@media (max-width: 559px) {
+  .balloon-toggle {
+    display: grid;
+    width: 44px;
+    place-items: center;
+    padding: 0;
+  }
+  .balloon-toggle span { display: none; }
+  .balloon-toggle::before { content: ""; }
+  .balloon-toggle[aria-pressed="true"]::before {
+    box-sizing: border-box;
+    width: 12px;
+    height: 14px;
+    border-inline: 3px solid currentColor;
+  }
+  .balloon-toggle[aria-pressed="false"]::before {
+    border-block: 7px solid transparent;
+    border-left: 10px solid currentColor;
+    margin-left: 2px;
+  }
+}
+
+
+
+@media (prefers-reduced-motion: no-preference) and (any-hover: hover) and (any-pointer: fine) {
+  /* Only the painted surface moves. Text and the clickable area stay stable. */
+  .rubber-live:not(.balloon-toggle) { position: relative; }
+  :is(.button, .text-link, .plain-button, .header-contact, .balloon-toggle).rubber-live:not(:disabled),
+  .rubber-live:active:not(:disabled),
+  .catalog-item .text-link.rubber-live,
+  .choices label > span.rubber-live,
+  .choices input:checked + span.rubber-live {
+    isolation: isolate;
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    transform: none;
+    filter: none;
+  }
+  .rubber-live::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    z-index: -1;
+    inset: -10px;
+    clip-path: var(--rubber-shape);
+    background:
+      radial-gradient(ellipse 28px 17px at var(--rubber-x) var(--rubber-y),
+        rgb(50 32 54 / calc(.065 * var(--rubber-strength))), transparent 95%),
+      radial-gradient(ellipse 56px 30px at var(--rubber-x) var(--rubber-y),
+        rgb(255 255 255 / calc(.16 * var(--rubber-strength))), transparent 100%),
+      var(--rubber-fill),
+      var(--puff-fill);
+  }
+}
+
+
+
+.site-header .header-contact:any-link {
+  color: var(--ink);
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .balloon-stage, .balloon-toggle { display: none; }
+  .balloon-particle { animation: none; }
+}
+
